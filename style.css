@@ -1,0 +1,284 @@
+:root {
+  --bg: #050805;
+  --grid: #0b2f0b;
+
+  /* 🌊 Ocean */
+  --ocean-width: 100%;
+  --ocean-height: 480px;
+  --ocean-left: 0%;
+  --ocean-bottom: 0%;
+  --ocean-opacity: 0.4;
+  --ocean-z: 20;
+
+  /* панель результатов */
+  --results-left: 54px;
+  --results-bottom: 124px;
+  --results-width: 100px;
+  --results-max-height: 150px;
+  --results-padding: 6px;
+  --results-font-size: 16px;
+
+  /* авианосец */
+  --carrier-w: 360px;
+  --carrier-left: 50%;
+  --carrier-top: 38%;
+
+  /* самолёт */
+  --plane-w: 80px;
+  --plane-start-x: 260px;
+  --plane-start-y: 443px;
+
+  /* логотип */
+  --logo-w: 162px;
+  --logo-top: 260px;
+
+  /* кнопка старт */
+  --btn-left: 50%;
+  --btn-top: 64%;
+}
+
+/* глобально */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", monospace;
+  color: #07ff6a;
+}
+
+/* телефон / экран */
+.phone {
+  aspect-ratio: 8.5 / 17;
+  height: 860px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* зелёная сетка */
+.phone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  background:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px) 0 0/26px 26px,
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px) 0 0/26px 26px;
+}
+
+/* 🌊 Ocean */
+.ocean {
+  position: absolute;
+  left: var(--ocean-left);
+  bottom: var(--ocean-bottom);
+  width: var(--ocean-width);
+  height: var(--ocean-height);
+  opacity: var(--ocean-opacity);
+  z-index: var(--ocean-z);
+  pointer-events: none;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 6px rgba(7, 255, 110, 0.4));
+}
+
+/* carrier / plane / logo */
+.logo {
+  position: absolute;
+  top: var(--logo-top);
+  left: 35.5%;
+  transform: translateX(-50%);
+  width: var(--logo-w);
+  filter: drop-shadow(0 0 6px #06c251);
+  z-index: 40;
+}
+.carrier {
+  position: absolute;
+  left: var(--carrier-left);
+  top: var(--carrier-top);
+  transform: translateX(-50%);
+  width: var(--carrier-w);
+  filter: drop-shadow(0 0 8px #078f3e);
+  z-index: 30;
+}
+.plane {
+  position: absolute;
+  left: var(--plane-start-x);
+  top: var(--plane-start-y);
+  transform: translate(-50%, -50%);
+  width: var(--plane-w);
+  filter: drop-shadow(0 0 6px #07ff6a);
+  z-index: 35;
+}
+
+/* кнопка старт */
+.start-btn {
+  position: absolute;
+  left: var(--btn-left);
+  top: var(--btn-top);
+  transform: translateX(-50%);
+  padding: 14px 30px;
+  border: 2px solid #07ff6a;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #07ff6a;
+  cursor: pointer;
+  text-shadow: 0 0 6px #11cf5d;
+  box-shadow: 0 0 12px rgba(7,255,106,0.08);
+  z-index: 50;
+}
+.start-btn:hover {
+  transform: translateX(-50%) scale(1.03);
+}
+
+/* взрыв */
+.explosion {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  border: 2px solid #07ff6a;
+  box-shadow: 0 0 15px #07ff6a, inset 0 0 10px #07ff6a;
+  z-index: 45;
+}
+.explosion.active {
+  animation: retroBoom 1s ease-out forwards;
+}
+@keyframes retroBoom {
+  0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 1; }
+  40%  { transform: translate(-50%, -50%) scale(0.6); opacity: 0.95; }
+  70%  { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.0); opacity: 0; }
+}
+
+/* результаты */
+.results-box {
+  position: absolute;
+  left: var(--results-left);
+  bottom: var(--results-bottom);
+  /* width: var(--results-width);  УБРАТЬ фиксированную ширину */
+  min-width: 100px;              /* минимальная ширина */
+  max-width: 160px;              /* ограничение, чтобы не было слишком широко */
+  background: rgba(0,0,0,0.65);
+  border: 1px solid rgba(7,255,106,0.3);
+  border-radius: 6px;
+  padding: var(--results-padding);
+  font-size: var(--results-font-size);
+  overflow-y: auto;
+  overflow-x: hidden;            /* убираем горизонтальный скролл */
+  z-index: 150;
+}
+.results-title { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: #bdfdb7; }
+.results-list div { padding: 2px 0; }
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clear-results-btn {
+  background: none;
+  border: none;
+  color: #067916;         /* красный цвет */
+  font-size: 12px;        /* чуть больше стрелка */
+  cursor: pointer;
+  margin-left: 6px;       /* небольшой отступ от текста */
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.clear-results-btn:hover {
+  transform: scale(1.2) rotate(90deg); /* эффект поворота при наведении */
+  text-shadow: 0 0 6px rgba(4, 92, 4, 0.8);
+}
+
+/* 🌐 Смайлик для смены языка */
+/* кнопка-шестерёнка */
+.lang-emoji {
+  position: absolute;
+  left: 85.6%;
+  top: 83%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #07ff6a;
+  z-index: 2000;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+.lang-emoji:hover {
+  transform: translate(-50%, -50%) rotate(90deg) scale(1.2);
+  text-shadow: 0 0 12px rgba(7,255,106,0.9);
+}
+
+/* меню языков */
+.lang-menu {
+  position: absolute;
+  left: 70%;
+  top: calc(76% + 16px); /* чуть ниже шестерёнки */
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0,0,0,0.75);
+  border: 1px solid rgba(7,255,106,0.3);
+  border-radius: 8px;
+  padding: 6px;
+  z-index: 2100;
+}
+.lang-menu[hidden] { display: none; }
+
+.lang-menu button {
+  background: transparent;
+  color: #07ff6a;
+  border: 1px solid rgba(7,255,106,0.25);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-family: "Courier New", monospace;
+  cursor: pointer;
+}
+.lang-menu button:hover {
+  background: rgba(7,255,106,0.15);
+  box-shadow: 0 0 8px rgba(7,255,106,0.25);
+}
+
+.hacker-overlay {
+  position: absolute;
+  right: 32px;   /* отступ справа */
+  top: 96px;     /* отступ сверху */
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 240;
+  transition: opacity 180ms ease;
+}
+
+.hacker-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.hacker-panel {
+  width: 160px;
+  max-height: 200px;
+  padding: 8px;
+  border: 1px solid rgba(7,255,106,0.28);
+  background: rgba(0,0,0,0.55);
+  color: #07ff6a;
+  font-size: 12px;
+  overflow: auto;
+}
+.panel-title { 
+  font-weight: 700; 
+  margin-bottom: 6px; 
+  color: #bdfdb7; 
+}
+.hack-log { 
+  margin: 0; 
+  white-space: pre-wrap; 
+  line-height: 1.2; 
+  font-size: 11px; 
+}

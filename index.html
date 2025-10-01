@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AirDROP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="phone" role="application" aria-label="AirDROP screen">
+
+    <!-- 🌌 Фоновые слои -->
+    <div class="stars" aria-hidden="true"></div>
+    <div class="clouds" aria-hidden="true"></div>
+
+    <!-- 🌊 Ocean -->
+    <img class="ocean" src="assets/ocean.png" alt="ocean" aria-hidden="true" />
+
+    <!-- 🌙 Луна -->
+    <img class="moon" src="assets/luna.png" alt="luna" aria-hidden="true" />
+
+    <!-- ✈️ Техника -->
+    <img class="carrier" src="assets/carrier.png" alt="" aria-hidden="true" />
+    <img class="logo" src="assets/logo.png" alt="" aria-hidden="true" />
+    <img class="plane" src="assets/plane.png" alt="" aria-hidden="true" />
+
+    <!-- 💥 Взрыв -->
+    <div class="explosion" role="img" aria-hidden="true"></div>
+
+    <!-- 🟢 Кнопка старт -->
+    <button class="start-btn" aria-label="start">START</button>
+
+    <!-- ⚙️ Кнопка смены языка -->
+    <button class="lang-emoji" aria-label="Change language">⚙️</button>
+
+    <!-- Меню языков -->
+    <div class="lang-menu" hidden>
+      <button data-lang="en">English</button>
+      <button data-lang="ru">Русский</button>
+      <button data-lang="es">Español</button>
+    </div>
+
+    <!-- 🖥️ Хакерская панель -->
+    <div class="hacker-overlay" aria-hidden="true">
+      <div class="hacker-panel">
+        <div class="panel-title">> SIGNAL CONSOLE — ANALYTICS</div>
+        <pre class="hack-log"></pre>
+      </div>
+    </div>
+
+    <!-- 📊 Результаты -->
+    <div class="results-box" aria-hidden="false">
+      <div class="results-header">
+        <div class="results-title">Results</div>
+        <button class="clear-results-btn" aria-label="Clear results">⟲</button>
+      </div>
+      <div class="results-list"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
